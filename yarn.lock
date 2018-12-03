@@ -194,7 +194,7 @@ socket.io-parser@~3.3.0:
     debug "~3.1.0"
     isarray "2.0.1"
 
-statesync@^0.2.8:
+statesync@^0.2.9:
   version "0.2.9"
   resolved "https://registry.yarnpkg.com/statesync/-/statesync-0.2.9.tgz#5aa234cf94b7795ae0498ee875b931b92ad905e8"
   integrity sha512-LIrgX3tFIjtINDSoJsKTi67r/zyMvEpgfHPmXoIBkv5aNOSHvDfEdnfmyysVg/rH/H36drZfHAD37m8ZFNCaHg==
