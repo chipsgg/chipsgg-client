@@ -1,5 +1,5 @@
 # chipsgg-client
-Simple client transport abstraction for the chipsgg development platform.
+Simple client abstraction for the chipsgg development platform.
 
 ## ChipsGG([SOCKET_URL], [AUTH_URL])
 Below is an example of how the client library can be initialized with vuejs.
