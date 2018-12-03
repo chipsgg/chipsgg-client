@@ -18,6 +18,11 @@ export default async (socketURL = SOCKET_URL, authURL = AUTHSERVER_URL) => {
     window.location.href = `${authURL}/auth?access_token=${token}`
   }
 
+  actions.logout = function() {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  }
+
   // initialize server state, authenticate the user
   const state = await ServerState(socket, actions)
   const authenticated = await Authenticate(socket, actions)
