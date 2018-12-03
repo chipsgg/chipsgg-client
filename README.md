@@ -10,7 +10,7 @@ import App from './App.vue'
 import router from './router'
 import ChipsGG from 'chipsgg-client'
 
-const Init = async () => {
+const Start = async () => {
   const props = await ChipsGG()
 
   return new Vue({
@@ -22,5 +22,5 @@ const Init = async () => {
   }).$mount('#app')
 }
 
-Init()
+Start()
 ```
