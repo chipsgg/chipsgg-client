@@ -1,0 +1,13 @@
+{
+  "name": "chipsgg-fe-client",
+  "version": "1.0.0",
+  "description": "Simple client transport abstraction for the chipsgg development platform.",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "tacyarg",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "socket.io-client": "^2.2.0",
+    "statesync": "^0.2.8"
+  }
+}
