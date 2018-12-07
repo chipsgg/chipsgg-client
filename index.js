@@ -34,6 +34,7 @@ export default async (socketURL = SOCKET_URL, authURL = AUTHSERVER_URL) => {
   }
 
   return {
+    _socket: socket,
     state,
     actions,
     authenticated,
