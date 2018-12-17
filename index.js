@@ -8,24 +8,6 @@ import ServerState from './libs/ServerState'
 const SOCKET_URL = 'https://socket.chips.gg'
 const AUTHSERVER_URL = 'https://auth.chips.gg'
 
-async function initializeState(socket, actions) {
-  // initialize server state, authenticate the user
-  const state = await ServerState(socket, actions)
-  const authenticated = await Authenticate(socket, actions)
-
-  // let userState = State({})
-  let userState = null
-  if (authenticated) {
-    userState = await UserState(socket, actions)
-  }
-
-  return {
-    state,
-    authenticated,
-    userState,
-  }
-}
-
 export default async (socketURL = SOCKET_URL, authURL = AUTHSERVER_URL) => {
   const socket = await Socket(socketURL)
   let actions = await Actions(socket)
@@ -41,16 +23,26 @@ export default async (socketURL = SOCKET_URL, authURL = AUTHSERVER_URL) => {
     window.location.href = '/'
   }
 
-  let state = await initializeState(socket, actions)
-  
-  // if we disconnect reauthenticate
+  // initialize server state, authenticate the user
+  const state = await ServerState(socket, actions)
+  let authenticated = await Authenticate(socket, actions)
+
+  // let userState = State({})
+  let userState = null
+  if (authenticated) {
+    userState = await UserState(socket, actions)
+  }
+
+  // reconnect and authenticate
   socket.on('reconnect', err => {
-    state = await initializeState(socket, actions)
+    authenticated = await Authenticate(socket, actions)
   })
 
   return {
     _socket: socket,
+    state,
     actions,
-    ...state,
+    authenticated,
+    userState,
   }
 }
