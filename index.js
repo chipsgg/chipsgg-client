@@ -34,7 +34,7 @@ export default async (socketURL = SOCKET_URL, authURL = AUTHSERVER_URL) => {
   }
 
   // reconnect and authenticate
-  socket.on('reconnect', err => {
+  socket.on('reconnect', async err => {
     authenticated = await Authenticate(socket, actions)
   })
 
