@@ -13,9 +13,14 @@ export default async (socketURL = SOCKET_URL, authURL = AUTHSERVER_URL) => {
   let actions = await Actions(socket)
 
   // TODO: do somthing with this later...
-  actions.login = function() {
+  actions.loginSteam = function() {
     var token = localStorage.getItem('token')
-    window.location.href = `${authURL}/auth?access_token=${token}`
+    window.location.href = `${authURL}/steam/auth?access_token=${token}`
+  }
+
+  actions.loginOpskins = function() {
+    var token = localStorage.getItem('token')
+    window.location.href = `${authURL}/opskins/auth?access_token=${token}`
   }
 
   actions.logout = function() {
