@@ -12,6 +12,22 @@ export default async (socketURL = SOCKET_URL, authURL = AUTHSERVER_URL) => {
   const socket = await Socket(socketURL)
   let actions = await Actions(socket)
 
+  // initialize server state, authenticate the user
+  const state = await ServerState(socket, actions)
+  let authenticated = await Authenticate(socket, actions)
+
+  // let userState = State({})
+  let userState = null
+  if (authenticated) {
+    userState = await UserState(socket, actions)
+    actions = await Actions(socket)
+  }
+
+  // reconnect and authenticate
+  socket.on('reconnect', async err => {
+    authenticated = await Authenticate(socket, actions)
+  })
+
   // TODO: do somthing with this later...
   actions.loginSteam = function() {
     var token = localStorage.getItem('token')
@@ -27,21 +43,6 @@ export default async (socketURL = SOCKET_URL, authURL = AUTHSERVER_URL) => {
     localStorage.removeItem('token')
     window.location.href = '/'
   }
-
-  // initialize server state, authenticate the user
-  const state = await ServerState(socket, actions)
-  let authenticated = await Authenticate(socket, actions)
-
-  // let userState = State({})
-  let userState = null
-  if (authenticated) {
-    userState = await UserState(socket, actions)
-  }
-
-  // reconnect and authenticate
-  socket.on('reconnect', async err => {
-    authenticated = await Authenticate(socket, actions)
-  })
 
   return {
     _socket: socket,
